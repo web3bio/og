@@ -20,6 +20,7 @@ body {
   margin: 0px;
   height: 100vh;
   background-color: rgb(14, 14, 14);
+  color: #fff;
   display: flex;
   align-items: center;
 }

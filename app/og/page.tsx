@@ -1,4 +1,5 @@
 "use client";
+import { formatText } from "@/utils/string";
 import Avatar from "boring-avatars";
 import { useSearchParams } from "next/navigation";
 import { QRCode } from "react-qrcode-logo";
@@ -17,8 +18,8 @@ export default function OG() {
             src={avatar}
             className="avatar"
             alt="Profile Avatar"
-            height={180}
-            width={180}
+            height={200}
+            width={200}
           />
         ) : (
           <Avatar
@@ -31,7 +32,7 @@ export default function OG() {
       </div>
       <div className="card-content">
         <div className="card-name">{displayName}</div>
-        <div className="card-identity">{identity}</div>
+        <div className="card-identity">{formatText(identity)}</div>
       </div>
       <div className="qrcode-container">
         <QRCode
