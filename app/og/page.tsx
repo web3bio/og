@@ -18,8 +18,8 @@ export default function OG() {
             src={avatar}
             className="avatar"
             alt="Profile Avatar"
-            height={200}
-            width={200}
+            height={180}
+            width={180}
           />
         ) : (
           <Avatar

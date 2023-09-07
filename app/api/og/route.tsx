@@ -1,7 +1,7 @@
 import { getScreenshot } from "@/lib/chromium";
 import { redirect } from "next/navigation";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const isDev = !process.env.AWS_REGION;
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
     const displayName = searchParams.get("displayName") ?? "";
     const identity = searchParams.get("identity") ?? "";
 
-    const url = `${process.env.NEXT_PUBLIC_APP_URL}/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
     console.log(url, "url");
     if (isHtmlDebug) {
       return redirect(url);
