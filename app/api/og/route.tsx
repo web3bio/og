@@ -1,6 +1,5 @@
-import { getScreenshot } from "@/lib/chromium";
+import screenshot from "@/lib/chromium";
 import { redirect } from "next/navigation";
-
 export const runtime = "nodejs";
 
 const isDev = !process.env.AWS_REGION;
@@ -38,9 +37,9 @@ export async function GET(request: Request) {
       return redirect(url);
     }
 
-    const file = await getScreenshot(url, isDev);
+    const file = await screenshot(url);
     const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
-    return new Response(file, {
+    return new Response(file ?? "", {
       status: 200,
       headers: {
         "Content-Type": "image/png",
