@@ -19,7 +19,7 @@ export default async function screenshot(url: string) {
       };
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
-  await page.setViewport({ width: 480, height: 240 });
+  await page.setViewport({ width: 1200, height: 630 });
   await page.goto(url, { waitUntil: "networkidle0" });
   return await page.screenshot({ type: "png" });
 }
