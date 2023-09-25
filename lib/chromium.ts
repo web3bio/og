@@ -19,7 +19,7 @@ async function getPage(isDev: boolean) {
 export async function getScreenshot(url: string, isDev: boolean) {
 	const page = await getPage(isDev);
 
-	await page.setViewport({ width: 480, height: 240 });
+	await page.setViewport({ width: 1200, height: 630 });
 	await page.goto(url);
 	await page.evaluateHandle('document.fonts.ready');
 

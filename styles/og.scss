@@ -1,0 +1,80 @@
+// Variables and mixins
+@import "variables";
+@import "spectre/mixins";
+
+/*! Spectre.css | MIT License | github.com/picturepan2/spectre */
+// Reset and dependencies
+@import "spectre/normalize";
+@import "spectre/base";
+
+// Layout
+@import "spectre/layout";
+
+body {
+  background: $bg-color;
+}
+
+.profile-container {
+  height: 630px;
+  padding: 20px;
+  width: 1200px;
+}
+
+.profile-card {
+  background: $light-color;
+  border: .05rem solid rgba(#000, .075);
+  border-radius: 20px;
+  box-shadow: 0 .1rem .2rem rgba(#000, .04);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  height: 590px;
+  letter-spacing: -.05em;
+  padding: 80px;
+  width: 1160px;
+
+  .card-avatar {
+    flex: 0;
+
+    .avatar,
+    svg {
+      box-shadow: inset 0 0 0 .2rem rgba(#fff, .1);
+      height: 8rem;
+      width: 8rem;
+      border-radius: 50%;
+    }
+  }
+
+  .card-content {
+    flex: 1;
+    padding: .5rem 0;
+    width: 100%;
+  }
+
+  .card-name {
+    font-size: 3.2rem;
+    font-weight: 900;
+  }
+
+  .card-identity {
+    color: $gray-color-dark;
+    font-size: 1.2rem;
+  }
+
+  .qrcode-container {
+    align-self: flex-end;
+  }
+}
+
+.qrcode-container {
+  align-items: center;
+  border-radius: .6rem;
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+
+  canvas {
+    transform: scale(.5);
+  }
+}
