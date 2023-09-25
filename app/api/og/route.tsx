@@ -1,9 +1,5 @@
 import screenshot from "@/lib/chromium";
-import { redirect } from "next/navigation";
 export const runtime = "nodejs";
-
-const isDev = !process.env.AWS_REGION;
-const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 interface ErrorResponseInterface {
   error: string;
@@ -32,10 +28,6 @@ export async function GET(request: Request) {
     const identity = searchParams.get("identity") ?? "";
 
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
-    console.log(url, "url");
-    if (isHtmlDebug) {
-      return redirect(url);
-    }
 
     const file = await screenshot(url);
     const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
