@@ -2,9 +2,10 @@ import screenshot from "@/lib/chromium";
 import { handleSearchPlatform } from "@/lib/platform";
 import { redirect } from "next/navigation";
 import fetch from "node-fetch";
-export const runtime = "nodejs";
 
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
+
+export const runtime = "nodejs";
 
 interface ErrorResponseInterface {
   error: string;
@@ -43,8 +44,10 @@ export async function GET(request: Request) {
     const displayName = profile?.displayName ?? "";
     const identity = profile?.address ?? "";
 
-    url = `${process.env.NEXT_PUBLIC_BASE_URL}/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
-
+    url = `${
+      new URL(request.url).origin
+    }/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
+    
     if (isHtmlDebug) {
       return redirect(url);
     }

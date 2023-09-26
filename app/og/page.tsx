@@ -4,6 +4,15 @@ import Avatar from "boring-avatars";
 import { useSearchParams } from "next/navigation";
 import { QRCode } from "react-qrcode-logo";
 
+const isValidURL = (str: string) => {
+  try {
+    const url = new URL(str);
+    return !!url;
+  } catch (e) {
+    return false;
+  }
+};
+
 export default function OG() {
   const searchParams = useSearchParams();
   const avatar = searchParams.get("avatar") ?? "";
@@ -14,7 +23,7 @@ export default function OG() {
     <div className="profile-container">
       <div className="profile-card">
         <div className="card-avatar">
-          {avatar ? (
+          {avatar && isValidURL(avatar) ? (
             <img
               src={avatar}
               className="avatar"
@@ -32,8 +41,10 @@ export default function OG() {
           )}
         </div>
         <div className="card-content">
-          <div className="card-name">{displayName}</div>
-          <div className="card-identity">{formatText(identity)}</div>
+          <div className="card-name">{displayName || "Empty Displayname"}</div>
+          <div className="card-identity">
+            {formatText(identity) || "Empty Identity"}
+          </div>
         </div>
         <div className="qrcode-container">
           <QRCode
