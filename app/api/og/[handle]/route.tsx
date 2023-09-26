@@ -33,7 +33,7 @@ export async function GET(request: Request) {
     let url;
     let profile;
     const platform = handle ? handleSearchPlatform(handle) : null;
-    if (handle) {
+    if (handle && platform) {
       profile = await fetch(
         `${PROFILE_API_ENDPOINT}/profile/${platform}/${handle
           .replace(".farcaster", "")
@@ -42,12 +42,12 @@ export async function GET(request: Request) {
     }
     const avatar = profile?.avatar ?? "";
     const displayName = profile?.displayName ?? "";
-    const identity = profile?.address ?? "";
+    const identity = profile?.address ?? profile?.identity ?? "";
 
     url = `${
       new URL(request.url).origin
     }/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
-    
+
     if (isHtmlDebug) {
       return redirect(url);
     }

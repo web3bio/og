@@ -57,14 +57,12 @@ export const handleSearchPlatform = (term: string) => {
       return PlatformType.lens;
     case regexUniversalFarcaster.test(term):
       return PlatformType.farcaster;
-    case regexSpaceid.test(term):
-      return PlatformType.space_id;
     case regexDotbit.test(term):
       return PlatformType.dotbit;
     case regexUnstoppableDomains.test(term):
       return PlatformType.unstoppableDomains;
-    case regexTwitter.test(term):
-      return PlatformType.twitter;
+    case regexFarcaster.test(term):
+      return PlatformType.farcaster;
     default:
       return PlatformType.nextid;
   }
