@@ -22,13 +22,7 @@ const errorHandle = (props: ErrorResponseInterface) => {
 };
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const avatar = searchParams.get("avatar") ?? "";
-    const displayName = searchParams.get("displayName") ?? "";
-    const identity = searchParams.get("identity") ?? "";
-
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
-
+    const url = request.url.replace('/api','')
     const file = await screenshot(url);
     const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
     return new Response(file ?? "", {
