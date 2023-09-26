@@ -13,7 +13,7 @@ const getOptions = async (): Promise<PuppeteerLaunchOptions> => {
     // In production, use the path of chrome-aws-lambda and its args
     return {
       args: chrome.args,
-      executablePath: await chrome.executablePath(),
+      executablePath: await chrome.executablePath,
       headless: chrome.headless,
     };
   }
