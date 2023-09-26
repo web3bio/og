@@ -12,8 +12,10 @@ const getOptions = async (): Promise<PuppeteerLaunchOptions> => {
   if (!process.env.NEXT_PUBLIC_IS_DEV) {
     // In production, use the path of chrome-aws-lambda and its args
     return {
-      args: chrome.args,
-      executablePath: await chrome.executablePath,
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      executablePath: await chrome.executablePath(
+        `https://github.com/Sparticuz/chromium/releases/download/v110.0.0/chromium-v110.0.0-pack.tar`
+      ),
       headless: chrome.headless,
     };
   }
