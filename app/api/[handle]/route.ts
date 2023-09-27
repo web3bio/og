@@ -53,12 +53,12 @@ export async function GET(request: Request) {
     }
 
     const file = await screenshot(url);
-    const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+    const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 365;
     return new Response(file ?? "", {
       status: 200,
       headers: {
         "Content-Type": "image/png",
-        "Cache-Control": `public, immutable, no-transform, s-maxage=${ONE_YEAR_IN_SECONDS}, max-age=${ONE_YEAR_IN_SECONDS}`,
+        "Cache-Control": `public, immutable, no-transform, s-maxage=${ONE_MONTH_IN_SECONDS}, max-age=${ONE_MONTH_IN_SECONDS}`,
       },
     });
   } catch (e: any) {
