@@ -1,3 +1,4 @@
+import { ONE_MONTH_IN_SECONDS } from "@/lib/cache";
 import screenshot from "@/lib/chromium";
 import { handleSearchPlatform } from "@/lib/platform";
 import { redirect } from "next/navigation";
@@ -6,8 +7,6 @@ import fetch from "node-fetch";
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 export const runtime = "nodejs";
-
-export const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 30;
 interface ErrorResponseInterface {
   error: string;
   code: number;
@@ -48,9 +47,8 @@ export async function GET(request: Request) {
           .replace(".farcaster", "")
           .toLowerCase()}`
       ).then((res) => res.json())) as ProfileResponse;
-    } else {
-      return;
     }
+    
     const avatar = profile?.avatar ?? "";
     const displayName = profile?.displayName ?? "";
     const identity = profile?.address ?? profile?.identity ?? "";
