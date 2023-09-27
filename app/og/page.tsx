@@ -2,6 +2,7 @@
 import { formatText } from "@/utils/string";
 import Avatar from "boring-avatars";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { QRCode } from "react-qrcode-logo";
 
 const isValidURL = (str: string) => {
@@ -18,15 +19,17 @@ export default function OG() {
   const avatar = searchParams.get("avatar") ?? "";
   const displayName = searchParams.get("displayName") ?? "";
   const identity = searchParams.get("identity") ?? "";
+  const [loadError, setLoadError] = useState(false);
 
   return (
     <div className="profile-container">
       <div className="profile-card">
         <div className="card-avatar">
-          {avatar && isValidURL(avatar) ? (
+          {avatar && isValidURL(avatar) && !loadError ? (
             <img
               src={avatar}
               className="avatar"
+              onError={() => setLoadError(true)}
               alt="Profile Avatar"
               height={180}
               width={180}
