@@ -1,3 +1,4 @@
+import { ONE_MONTH_IN_SECONDS } from "@/lib/cache";
 import screenshot from "@/lib/chromium";
 import { handleSearchPlatform } from "@/lib/platform";
 import { redirect } from "next/navigation";
@@ -6,11 +7,16 @@ import fetch from "node-fetch";
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 export const runtime = "nodejs";
-
 interface ErrorResponseInterface {
   error: string;
   code: number;
   headers?: HeadersInit;
+}
+interface ProfileResponse {
+  avatar: string;
+  displayName: string;
+  identity: string;
+  address: string;
 }
 const errorHandle = (props: ErrorResponseInterface) => {
   return new Response(
@@ -29,17 +35,20 @@ const errorHandle = (props: ErrorResponseInterface) => {
 const PROFILE_API_ENDPOINT = "https://api.web3.bio/";
 export async function GET(request: Request) {
   try {
-    const handle = new URL(request.url).pathname.split("/").findLast((x) => x);
+    const pathname = new URL(request.url).pathname;
+    const handle = pathname.split("/").pop();
     let url;
     let profile;
     const platform = handle ? handleSearchPlatform(handle) : null;
+
     if (handle && platform) {
-      profile = await fetch(
+      profile = (await fetch(
         `${PROFILE_API_ENDPOINT}/profile/${platform}/${handle
           .replace(".farcaster", "")
           .toLowerCase()}`
-      ).then((res: { json: () => Object }) => res.json());
+      ).then((res) => res.json())) as ProfileResponse;
     }
+    
     const avatar = profile?.avatar ?? "";
     const displayName = profile?.displayName ?? "";
     const identity = profile?.address ?? profile?.identity ?? "";
@@ -53,7 +62,6 @@ export async function GET(request: Request) {
     }
 
     const file = await screenshot(url);
-    const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 30;
     return new Response(file ?? "", {
       status: 200,
       headers: {
