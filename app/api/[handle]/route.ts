@@ -53,7 +53,7 @@ export async function GET(request: Request) {
     }
 
     const file = await screenshot(url);
-    const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 365;
+    const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 30;
     return new Response(file ?? "", {
       status: 200,
       headers: {
