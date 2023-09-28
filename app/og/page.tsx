@@ -3,6 +3,7 @@ import Avatar from "boring-avatars";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { QRCode } from "react-qrcode-logo";
+import { PlatformType } from "@/lib/platform";
 
 const isValidURL = (str: string) => {
   try {
@@ -20,6 +21,9 @@ export default function OG() {
   const identity = searchParams.get("identity") ?? "";
   const address = searchParams.get("address") ?? "";
   const platform = searchParams.get("platform") ?? "";
+  const relatedPath = `${identity}${
+    platform === PlatformType.farcaster ? ".farcaster" : ""
+  }`;
   const [loadError, setLoadError] = useState(false);
 
   return (
@@ -47,7 +51,7 @@ export default function OG() {
         <div className="card-content">
           <div className="card-name">{displayName}</div>
           <div className="card-link">
-            <span className="mr-1">web3.bio</span>/<span className="ml-1">{identity}</span>
+            <span className="mr-1">web3.bio</span>/<span className="ml-1">{relatedPath}</span>
           </div>
         </div>
         <div className="card-footer">
@@ -56,7 +60,7 @@ export default function OG() {
           </div>
           <div className="qrcode-container">
             <QRCode
-              value={`https://web3.bio/${identity}`}
+              value={`https://web3.bio/${relatedPath}`}
               ecLevel="L"
               size={240}
               eyeRadius={50}
