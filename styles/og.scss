@@ -7,11 +7,21 @@
 @import "spectre/normalize";
 @import "spectre/base";
 
-// Layout
+// Styles
 @import "spectre/layout";
+@import "spectre/utilities";
+
+// Variables
+$pride-color-1: #FBF4EC !default;
+$pride-color-2: #ECD7C8 !default;
+$pride-color-3: #EEA4BC !default;
+$pride-color-4: #BE88C4 !default;
+$pride-color-5: #9186E7 !default;
+$pride-color-6: #92C9F9 !default;
+$pride-color-7: #C7F8FF !default;
 
 body {
-  background: $bg-color;
+  background: lighten($bg-color, 3%);
 }
 
 .profile-container {
@@ -25,12 +35,12 @@ body {
   border: .05rem solid rgba(#000, .075);
   border-radius: 20px;
   box-shadow: 0 .1rem .2rem rgba(#000, .04);
-  color: #000;
+  color: $dark-color;
   display: flex;
   flex-direction: column;
   height: 590px;
   letter-spacing: -.05em;
-  padding: 80px;
+  padding: 40px 80px;
   width: 1160px;
 
   .card-avatar {
@@ -38,43 +48,66 @@ body {
 
     .avatar,
     svg {
-      box-shadow: inset 0 0 0 .2rem rgba(#fff, .1);
-      height: 8rem;
-      width: 8rem;
+      box-shadow: inset 0 0 0 .2rem rgba($light-color, .1), 0 .4rem 1rem rgba(0, 0, 0, .1);
+      height: 6rem;
+      width: 6rem;
       border-radius: 50%;
     }
   }
 
   .card-content {
     flex: 1;
-    padding: .5rem 0;
+    padding: 0;
     width: 100%;
   }
 
-  .card-name {
-    font-size: 3.2rem;
-    font-weight: 900;
+  .card-footer {
+    align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
   }
 
-  .card-identity {
-    color: $gray-color-dark;
-    font-size: 1.2rem;
+  .card-name {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -.05em;
+  }
+
+  .card-link {
+    border: 4px solid $dark-color;
+    border-radius: 4rem;
+    display: inline-flex;
+    font-size: 1.4rem;
+    padding: .4rem 1.2rem;
+  }
+
+  .card-address {
+    font-size: 1.4rem;
   }
 
   .qrcode-container {
-    align-self: flex-end;
+    align-items: center;
+    border-radius: .6rem;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    width: 3rem;
+  
+    canvas {
+      transform: scale(.5);
+    }
   }
 }
 
-.qrcode-container {
-  align-items: center;
-  border-radius: .6rem;
-  display: flex;
-  height: 3rem;
-  justify-content: center;
-  width: 3rem;
+.text-pride {
+  background-image: linear-gradient(70deg, $pride-color-1 10%, $pride-color-2 25%, $pride-color-3 36%, $pride-color-4 50%, $pride-color-5 63%, $pride-color-6 75%, $pride-color-7 90%);
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  canvas {
-    transform: scale(.5);
-  }
+.bg-pride {
+  background: linear-gradient(70deg, $pride-color-1 -10%, $pride-color-2 5%, $pride-color-3 36%, $pride-color-4 50%, $pride-color-5 63%, $pride-color-6 95%, $pride-color-7 110%);
 }

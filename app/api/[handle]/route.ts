@@ -51,11 +51,12 @@ export async function GET(request: Request) {
     
     const avatar = profile?.avatar ?? "";
     const displayName = profile?.displayName ?? "";
-    const identity = profile?.address ?? profile?.identity ?? "";
+    const identity = profile?.identity ?? "";
+    const address = profile?.address ?? "";
 
     url = `${
       new URL(request.url).origin
-    }/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}`;
+    }/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}&address=${address}&platform=${platform}`;
 
     if (isHtmlDebug) {
       return redirect(url);

@@ -1,5 +1,4 @@
 "use client";
-import { formatText } from "@/utils/string";
 import Avatar from "boring-avatars";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -19,6 +18,8 @@ export default function OG() {
   const avatar = searchParams.get("avatar") ?? "";
   const displayName = searchParams.get("displayName") ?? "";
   const identity = searchParams.get("identity") ?? "";
+  const address = searchParams.get("address") ?? "";
+  const platform = searchParams.get("platform") ?? "";
   const [loadError, setLoadError] = useState(false);
 
   return (
@@ -31,33 +32,38 @@ export default function OG() {
               className="avatar"
               onError={() => setLoadError(true)}
               alt="Profile Avatar"
-              height={180}
-              width={180}
+              height={120}
+              width={120}
             />
           ) : (
             <Avatar
-              size={180}
-              name={identity || "default"}
+              size={120}
+              name={identity}
               variant="bauhaus"
               colors={["#ECD7C8", "#EEA4BC", "#BE88C4", "#9186E7", "#92C9F9"]}
             />
           )}
         </div>
         <div className="card-content">
-          <div className="card-name">{displayName || "Empty Displayname"}</div>
-          <div className="card-identity">
-            {formatText(identity) || "Empty Identity"}
+          <div className="card-name">{displayName}</div>
+          <div className="card-link">
+            <span className="mr-1">web3.bio</span>/<span className="ml-1">{identity}</span>
           </div>
         </div>
-        <div className="qrcode-container">
-          <QRCode
-            value={`https://web3.bio/${identity}`}
-            ecLevel="L"
-            size={220}
-            eyeRadius={50}
-            eyeColor="#000"
-            fgColor="#222"
-          />
+        <div className="card-footer">
+          <div className="card-address">
+            {address}
+          </div>
+          <div className="qrcode-container">
+            <QRCode
+              value={`https://web3.bio/${identity}`}
+              ecLevel="L"
+              size={240}
+              eyeRadius={50}
+              eyeColor="#000"
+              fgColor="#222"
+            />
+          </div>
         </div>
       </div>
     </div>
