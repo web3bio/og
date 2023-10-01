@@ -51,7 +51,7 @@ export default function OG() {
         <div className="card-content">
           <div className="card-name">{displayName}</div>
           <div className="card-link">
-            <span className="mr-1">web3.bio</span>/<span className="ml-1">{relatedPath}</span>
+            web3.bio/{relatedPath}
           </div>
         </div>
         <div className="card-footer">

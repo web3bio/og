@@ -59,7 +59,7 @@ export async function GET(request: Request) {
     }/og/?avatar=${avatar}&displayName=${displayName}&identity=${identity}&address=${address}&platform=${platform}`;
 
     if (isHtmlDebug) {
-      return redirect(url);
+      console.log(url)
     }
 
     const file = await screenshot(url);
