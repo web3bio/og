@@ -9,6 +9,14 @@ const nextConfig = {
       permanent: true,
     },
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
   experimental: {
     serverComponentsExternalPackages: ["chrome-aws-lambda", "puppeteer-core"],
   },

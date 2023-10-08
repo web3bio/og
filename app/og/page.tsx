@@ -1,57 +1,60 @@
-"use client";
+import { handleSearchPlatform } from "@/lib/platform";
 import { formatText } from "@/utils/string";
-import Avatar from "boring-avatars";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { QRCode } from "react-qrcode-logo";
+import { notFound } from "next/navigation";
+import QRCode from "../components/QRCode";
+import { Avatar } from "../components/Avatar";
 
-const isValidURL = (str: string) => {
-  try {
-    const url = new URL(str);
-    return !!url;
-  } catch (e) {
-    return false;
-  }
+const PROFILE_API_ENDPOINT = "https://api.web3.bio/";
+
+interface ProfileResponse {
+  avatar: string;
+  displayName: string;
+  identity: string;
+  address: string;
+}
+
+const fetchDataFromServer = async (handle?: string | string[] | null) => {
+  if (!handle || typeof handle !== "string") return null;
+  const platform = handleSearchPlatform(handle);
+  return (await fetch(
+    `${PROFILE_API_ENDPOINT}/profile/${platform}/${handle
+      .replace(".farcaster", "")
+      .toLowerCase()}`
+  ).then((res) => res.json())) as ProfileResponse;
 };
 
-export default function OG() {
-  const searchParams = useSearchParams();
-  const avatar = searchParams.get("avatar") ?? "";
-  const displayName = searchParams.get("displayName") ?? "";
-  const identity = searchParams.get("identity") ?? "";
-  const [loadError, setLoadError] = useState(false);
+export default async function OG({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const handle = searchParams.u;
+  const profile = await fetchDataFromServer(handle);
+  if (!profile) notFound();
 
   return (
     <div className="profile-container">
       <div className="profile-card">
         <div className="card-avatar">
-          {avatar && isValidURL(avatar) && !loadError ? (
-            <img
-              src={avatar}
-              className="avatar"
-              onError={() => setLoadError(true)}
-              alt="Profile Avatar"
-              height={180}
-              width={180}
-            />
-          ) : (
-            <Avatar
-              size={180}
-              name={identity || "default"}
-              variant="bauhaus"
-              colors={["#ECD7C8", "#EEA4BC", "#BE88C4", "#9186E7", "#92C9F9"]}
-            />
-          )}
+          <Avatar
+            src={profile.avatar}
+            className="avatar"
+            alt={`${profile.identity} Avatar / Profile Photo`}
+            height={180}
+            width={180}
+          />
         </div>
         <div className="card-content">
-          <div className="card-name">{displayName || "Empty Displayname"}</div>
+          <div className="card-name">
+            {profile.displayName || "Empty Displayname"}
+          </div>
           <div className="card-identity">
-            {formatText(identity) || "Empty Identity"}
+            {formatText(profile.identity) || "Empty Identity"}
           </div>
         </div>
         <div className="qrcode-container">
           <QRCode
-            value={`https://web3.bio/${identity}`}
+            value={`https://web3.bio/${profile.identity}`}
             ecLevel="L"
             size={220}
             eyeRadius={50}
@@ -63,3 +66,6 @@ export default function OG() {
     </div>
   );
 }
+export const dynamic = "force-static";
+export const runtime = "nodejs";
+export const revalidate = 604800;
