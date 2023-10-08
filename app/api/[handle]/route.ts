@@ -1,6 +1,5 @@
 import { ONE_MONTH_IN_SECONDS } from "@/lib/cache";
 import screenshot from "@/lib/chromium";
-import { redirect } from "next/navigation";
 
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
@@ -33,7 +32,7 @@ export async function GET(request: Request) {
     url = `${new URL(request.url).origin}/og/?u=${handle}`;
 
     if (isHtmlDebug) {
-      return redirect(url);
+      console.log(url);
     }
 
     const file = await screenshot(url);
