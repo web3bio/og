@@ -17,7 +17,8 @@ const fetchDataFromServer = async (handle: string, platform: PlatformType) => {
   return (await fetch(
     `${PROFILE_API_ENDPOINT}/profile/${platform}/${handle
       .replace(".farcaster", "")
-      .toLowerCase()}`
+      .toLowerCase()}`,
+    { cache: "no-store" }
   ).then((res) => res.json())) as ProfileResponse;
 };
 
