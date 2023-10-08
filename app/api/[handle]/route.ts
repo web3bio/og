@@ -28,8 +28,7 @@ export async function GET(request: Request) {
   try {
     const pathname = new URL(request.url).pathname;
     const handle = pathname.split("/").pop();
-    let url;
-    url = `${new URL(request.url).origin}/og/?u=${handle}`;
+    const url = `${new URL(request.url).origin}/og?u=${handle}`;
 
     if (isHtmlDebug) {
       console.log(url);
