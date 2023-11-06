@@ -43,7 +43,7 @@ export async function GET(request: Request) {
 
     if (handle && platform) {
       profile = (await fetch(
-        `${PROFILE_API_ENDPOINT}/profile/${platform}/${handle
+        `${PROFILE_API_ENDPOINT}/ns/${platform}/${handle
           .replace(".farcaster", "")
           .toLowerCase()}`
       ).then((res) => res.json())) as ProfileResponse;

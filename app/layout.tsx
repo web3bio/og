@@ -1,10 +1,6 @@
 // import './globals.css'
-import { DM_Sans } from "next/font/google";
+import { GeistSans } from "geist/font";
 import '../styles/og.scss'
-
-const sans = DM_Sans({
-  subsets: ["latin"]
-})
 
 export default function RootLayout({
   children,
@@ -13,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={sans.className}>{children}</body>
+      <body className={GeistSans.className}>{children}</body>
     </html>
   )
 }
