@@ -29,6 +29,18 @@ export default function OG() {
   return (
     <div className="profile-container">
       <div className="profile-card">
+        <div className="card-cover">
+          {avatar && isValidURL(avatar) && !loadError ? (
+            <img
+              src={avatar}
+              className="avatar"
+              onError={() => setLoadError(true)}
+              alt="Profile Avatar"
+              height={120}
+              width={120}
+            />
+          ) : ""}
+        </div>
         <div className="card-avatar">
           {avatar && isValidURL(avatar) && !loadError ? (
             <img

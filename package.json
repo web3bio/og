@@ -19,7 +19,7 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "geist": "^1.0.0",
-    "next": "^14.0.1",
+    "next": "^14.0.2",
     "node-fetch": "^3.3.2",
     "postcss": "8.4.29",
     "puppeteer-core": "^19.6.1",
